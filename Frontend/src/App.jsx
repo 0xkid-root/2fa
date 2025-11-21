@@ -1,7 +1,16 @@
 
+import { useState } from 'react'
+import axios from 'axios';
 import './App.css'
 
 function App() {
+
+  const [email,setEmail]= useState("");
+  const [token,setToken]= useState("");
+  const [QrCode,setQrCode]= useState("");
+  const [verify,setVerify]= useState(false);
+
+  
 
   return (
     <>
