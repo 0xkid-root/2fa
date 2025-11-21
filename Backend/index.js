@@ -19,7 +19,7 @@ app.use(express.json());
 
 // generate secret   and qr code ----------
 
-app.post('/generate',async(requestAnimationFrame,res)=>{
+app.post('/generate',async(req,res)=>{
     const {email} = req.body;
 
     const user = await User.findOne({
@@ -28,7 +28,7 @@ app.post('/generate',async(requestAnimationFrame,res)=>{
     //  i m checking email :----
     if(user){
         return res.json({
-            error:"Email alrady in use"
+            error:"Email already in use"
         })
     }
 
@@ -62,7 +62,7 @@ app.post('/generate',async(requestAnimationFrame,res)=>{
 
 app.post("/verify",async(req,res)=>{
     const {email,token} = req.body;
-    const user = User.findOne({
+    const user = await User.findOne({
         Email:email,
     })
 
@@ -75,13 +75,15 @@ app.post("/verify",async(req,res)=>{
 
     const verified = speakeasy.totp.verify({
         secret:user.SecretKey,
-        encoding:base32,
+        encoding:'base32',
         token,
         window:1
     })
     // here he return true and false value ---------=======
 
-    res.json(verified);
+    res.json({
+        verified: verified
+    });
 
 })
 

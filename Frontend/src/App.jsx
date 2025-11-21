@@ -18,7 +18,7 @@ function App() {
   }
 
   const handleToken = async ()=>{
-    const {data} = await axios.post(`${BaseUrl}/token`,{email,token})
+    const {data} = await axios.post(`${BaseUrl}/verify`,{email,token})
     console.log("data in hshdsh",data);
     setVerify(data.verified);
   }
@@ -47,7 +47,7 @@ function App() {
           <h4>
             Scan the QR Code with your authenticator app or use the secret key to set up two-factor authentication. 
           </h4>
-          <img src={""} alt="QR Code " style={{width:200,marginBottom:20}} />
+          <img src={QrCode} alt="QR Code " style={{width:200,marginBottom:20}} />
 
         </>}
         <div>
